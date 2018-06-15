@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "spec_helper"
-require "webmock/rspec"
 
 RSpec.describe JSONAPI::Resource::Querying do
   let(:user) { User.new(id: "1", email: "user@example.com") }

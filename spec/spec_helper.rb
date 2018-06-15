@@ -7,6 +7,7 @@ require "bundler/setup"
 require "jsonapi/resource"
 require "pry"
 require "pry-byebug"
+require "webmock/rspec"
 
 class Base < JSONAPI::Resource::Base
   def self.base_uri
