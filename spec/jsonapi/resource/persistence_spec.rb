@@ -164,5 +164,22 @@ RSpec.describe JSONAPI::Resource::Persistence do
     it "returns a hash that represents to payload to send to the server" do
       expect(user.request_payload).to eq request_payload
     end
+
+    context "when relationships dont have data" do
+      let(:request_payload) do
+        {
+          data: {
+            id: user.id,
+            type: user.class.type,
+            attributes: { email: user.email }
+          }
+        }
+      end
+      let(:user_relationships) { { profile: {} } }
+
+      it "returns a hash without the relationships key" do
+        expect(user.request_payload).to eq request_payload
+      end
+    end
   end
 end

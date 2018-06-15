@@ -18,7 +18,7 @@ module JSONAPI
 
         def create(resource)
           response_document =
-            JSONAPI::Client.create(collection_uri, default_headers, resource.request_payload) 
+            JSONAPI::Client.create(collection_uri, default_headers, resource.request_payload)
 
           case response_document
           when JSONAPI::Types::Success, JSONAPI::Types::Failure
@@ -117,7 +117,7 @@ module JSONAPI
       def relationships_for_request
         relationships_or_default
           .transform_values { |relationship| relationship.to_hash.slice(:data) }
-          .compact
+          .select { |_key, value| value.any? }
           .yield_self { |results| results if results.any? }
       end
 
