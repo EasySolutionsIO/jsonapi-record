@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/InspireNL/jsonapi-client
-  revision: 9e17d0534544db1a587e58ec6d0654cfd35667bb
+  revision: 6c8cc4a7e2581c6580ceb41f588e41799a83615e
   specs:
-    jsonapi-client (0.1.0)
+    jsonapi-client (0.1.1)
       http (~> 3.0)
       jsonapi-types
 
