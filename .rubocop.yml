@@ -18,6 +18,10 @@ Layout/MultilineOperationIndentation:
 Layout/SpaceBeforeFirstArg:
   Enabled: false
 
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*
+
 Metrics/CyclomaticComplexity:
   Max: 10
 
