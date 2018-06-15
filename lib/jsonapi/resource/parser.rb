@@ -44,12 +44,12 @@ module JSONAPI
 
       def parse_resource(resource)
         {
-          persisted: true,
           top_level_meta: document.meta,
           top_level_links: document.links,
           **resource.attributes.slice(:id, :relationships, :links, :meta),
           **resource.resource_attributes,
-          **parse_relationships(resource.relationships)
+          **parse_relationships(resource.relationships),
+          persisted: true
         }.compact
       end
 
@@ -67,8 +67,10 @@ module JSONAPI
 
       def parse_relationship(relationship)
         case relationship.data
-        when Array then parse_relationship_to_many
-        when JSONAPI::Types::ResourceIdentifier then parse_relationship_to_one
+        when Array
+          parse_relationship_to_many(relationship)
+        when JSONAPI::Types::ResourceIdentifier
+          parse_relationship_to_one(relationship)
         end
       end
 
