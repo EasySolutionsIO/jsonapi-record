@@ -177,7 +177,7 @@ RSpec.describe JSONAPI::Resource::Persistence do
       end
       let(:user_relationships) { { profile: {} } }
 
-      it "removes the relatioships key from the hash" do
+      it "returns a hash without the relationships key" do
         expect(user.request_payload).to eq request_payload
       end
     end

@@ -18,9 +18,8 @@ RSpec.describe JSONAPI::Resource::Parser do
       let(:included) { [included_comment1, included_comment2] }
       let(:document) { JSONAPI::Types::Success.new(data: data, included: included) }
       let(:user1) { { id: "1", type: "users", relationships: relationships } }
-      let(:user2) { { id: "2", type: "users" } }
-      let(:comment1) { { id: "1", type: "comments" } }
-      let(:comment2) { { id: "2", type: "comments" } }
+      let(:comment1) { included_comment1.slice(:id, :type) }
+      let(:comment2) { included_comment2.slice(:id, :type) }
       let(:comments_relationship) { { data: [comment1, comment2] } }
       let(:relationships) { { comments: comments_relationship } }
       let(:parsed_comment1) { { id: "1", body: "Hi!", persisted: true } }
@@ -35,15 +34,16 @@ RSpec.describe JSONAPI::Resource::Parser do
           persisted: true
         }
       end
-      let(:parsed_user2) { { id: "2", persisted: true } }
 
-      context "when document data is an array" do
+      context "when document is a resource" do
         let(:data) { user1 }
 
         it { is_expected.to eq(parsed_user1) }
       end
 
-      context "when document is a resource" do
+      context "when document data is an array" do
+        let(:parsed_user2) { { id: "2", persisted: true } }
+        let(:user2) { { id: "2", type: "users" } }
         let(:data) { [user1, user2] }
 
         it { is_expected.to eq([parsed_user1, parsed_user2]) }
