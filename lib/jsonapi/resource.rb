@@ -4,7 +4,6 @@ require "jsonapi-client"
 
 require "jsonapi/resource/struct"
 require "jsonapi/resource/attributes"
-require "jsonapi/resource/errors"
 require "jsonapi/resource/uris"
 require "jsonapi/resource/parser"
 require "jsonapi/resource/relationships"
