@@ -5,7 +5,6 @@ module JSONAPI
     class Base < Struct
       include JSONAPI::Resource::Attributes
       include JSONAPI::Resource::Relationships
-      include JSONAPI::Resource::Errors
       include JSONAPI::Resource::Persistence
       include JSONAPI::Resource::Querying
       include JSONAPI::Resource::URIs
