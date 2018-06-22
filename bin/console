@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "jsonapi/resource"
+require "jsonapi-resource"
 require "pry"
 require "pry-byebug"
 
