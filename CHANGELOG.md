@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.3] 2018-06-22
+
+### Removed
+
+- Remove Errors module.
+
 ## [0.1.2] 2018-06-21
 
 ### Changed
