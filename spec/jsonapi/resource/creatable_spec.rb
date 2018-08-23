@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe JSONAPI::Resource::Persistable do
+RSpec.describe JSONAPI::Record::Persistable do
   let(:user_relationships) { { profile: { data: { id: "1", type: "profiles" } } } }
   let(:user) { User.new(id: "1", email: "user@example.com", relationships: user_relationships) }
   let(:post) { Post.new(title: "Post1", body: "Lorem Ipsum") }
@@ -18,7 +18,7 @@ RSpec.describe JSONAPI::Resource::Persistable do
       let(:status) { 201 }
       let(:body) { user.to_payload }
 
-      it "returns a persisted resource" do
+      it "returns a persisted record" do
         expect(created_user.persisted?).to be true
       end
     end
@@ -27,7 +27,7 @@ RSpec.describe JSONAPI::Resource::Persistable do
       let(:status) { 422 }
       let(:body) { { errors: [{ title: "Example error." }] } }
 
-      it "returns a non persisted resource with response errors" do
+      it "returns a non persisted record with response errors" do
         expect(created_user.persisted?).to be false
         expect(created_user.response_errors.any?).to be true
       end
@@ -41,7 +41,7 @@ RSpec.describe JSONAPI::Resource::Persistable do
       stub_request(:post, User.collection_uri).to_return(status: 422, body: errors.to_json)
     end
 
-    it "raises an exception when saved resource contains errors" do
+    it "raises an exception when saved record contains errors" do
       expect { User.create!(user) }.to raise_error JSONAPI::Client::UnprocessableEntity
     end
   end
@@ -54,7 +54,7 @@ RSpec.describe JSONAPI::Resource::Persistable do
       stub_request(:post, User.collection_uri).to_return(status: 201, body: body.to_json)
     end
 
-    it "returns a persisted resource" do
+    it "returns a persisted record" do
       expect(created_user).to an_instance_of User
       expect(created_user.persisted?).to be true
     end
@@ -67,13 +67,13 @@ RSpec.describe JSONAPI::Resource::Persistable do
       stub_request(:post, User.collection_uri).to_return(status: 422, body: errors.to_json)
     end
 
-    it "raises an exception when created resource contains errors" do
+    it "raises an exception when created record contains errors" do
       expect { User.create_with!({}) }.to raise_error JSONAPI::Client::UnprocessableEntity
     end
   end
 
   describe ".creatable_attribute_names" do
-    it "returns the resource attribute names with creatable option true" do
+    it "returns the record attribute names with creatable option true" do
       expect(Post.creatable_attribute_names).to contain_exactly(:title)
     end
   end

@@ -1,29 +1,29 @@
 # frozen_string_literal: true
 
 module JSONAPI
-  module Resource
+  module Record
     module Updatable
       def self.included(base)
         base.extend(ClassMethods)
       end
 
       module ClassMethods
-        def update(resource)
+        def update(record)
           response_document =
             JSONAPI::Client.update(
-              individual_uri(resource.id), default_headers, resource.payload_attributes_for_update
+              individual_uri(record.id), default_headers, record.payload_attributes_for_update
             )
 
           case response_document
           when JSONAPI::Types::Success, JSONAPI::Types::Failure
-            resource.new(parse(response_document))
+            record.new(parse(response_document))
           when JSONAPI::Types::Document
-            resource.new(persisted: true)
+            record.new(persisted: true)
           end
         end
 
-        def update!(resource)
-          raise_exception_when_errors { update(resource) }
+        def update!(record)
+          raise_exception_when_errors { update(record) }
         end
 
         def updatable_attribute_names

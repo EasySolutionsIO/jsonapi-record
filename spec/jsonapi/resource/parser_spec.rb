@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe JSONAPI::Resource::Parser do
+RSpec.describe JSONAPI::Record::Parser do
   subject { described_class.parse(document) }
 
   describe ".parse" do

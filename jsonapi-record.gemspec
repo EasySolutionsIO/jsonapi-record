@@ -2,23 +2,23 @@
 
 lib = File.expand_path("lib", __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "jsonapi/resource/version"
+require "jsonapi/record/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "jsonapi-resource"
+  spec.name = "jsonapi-record"
   spec.email = ["pablocrivella@gmail.com", "info@inspire.nl"]
   spec.license = "MIT"
-  spec.version = JSONAPI::Resource::VERSION
+  spec.version = JSONAPI::Record::VERSION
   spec.authors = ["Pablo Crivella", "InspirenNL"]
-  spec.homepage = "https://github.com/InspireNL/jsonapi-resource"
-
-  spec.summary = "Resource classes for APIs implementing the JSON:API spec."
-
-  spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  end
-  spec.bindir = "exe"
-  spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.homepage = "https://github.com/InspireNL/jsonapi-record"
+  spec.summary = "Base classes for APIs implementing the JSON:API spec."
+  spec.metadata = {
+    "bug_tracker_uri" => "https://github.com/InspireNL/jsonapi-record/issues",
+    "changelog_uri"   => "https://github.com/InspireNL/jsonapi-record/blob/master/CHANGELOG.md",
+    "source_code_uri" => "https://github.com/InspireNL/jsonapi-record"
+  }
+  spec.files = Dir["lib/**/*"]
+  spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
   spec.require_paths = ["lib"]
 
   spec.add_runtime_dependency "jsonapi-client"

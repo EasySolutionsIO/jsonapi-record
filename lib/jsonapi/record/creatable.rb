@@ -1,29 +1,29 @@
 # frozen_string_literal: true
 
 module JSONAPI
-  module Resource
+  module Record
     module Creatable
       def self.included(base)
         base.extend(ClassMethods)
       end
 
       module ClassMethods
-        def create(resource)
+        def create(record)
           response_document =
             JSONAPI::Client.create(
-              collection_uri, default_headers, resource.payload_attributes_for_create
+              collection_uri, default_headers, record.payload_attributes_for_create
             )
 
           case response_document
           when JSONAPI::Types::Success, JSONAPI::Types::Failure
-            resource.new(parse(response_document))
+            record.new(parse(response_document))
           when JSONAPI::Types::Document
-            resource.new(persisted: true)
+            record.new(persisted: true)
           end
         end
 
-        def create!(resource)
-          raise_exception_when_errors { create(resource) }
+        def create!(record)
+          raise_exception_when_errors { create(record) }
         end
 
         def create_with(attributes)

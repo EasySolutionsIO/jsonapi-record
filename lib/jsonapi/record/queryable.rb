@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JSONAPI
-  module Resource
+  module Record
     module Queryable
       def find!(id, query = {})
         fetch_resource(individual_uri(id), query)

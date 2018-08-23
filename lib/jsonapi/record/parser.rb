@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JSONAPI
-  module Resource
+  module Record
     class Parser
       attr_reader :document
 

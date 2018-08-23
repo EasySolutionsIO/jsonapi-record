@@ -17,7 +17,7 @@ GIT
 PATH
   remote: .
   specs:
-    jsonapi-resource (0.2.0)
+    jsonapi-record (0.2.0)
       jsonapi-client
 
 GEM
@@ -115,7 +115,7 @@ PLATFORMS
 DEPENDENCIES
   bundler (~> 1.16)
   jsonapi-client!
-  jsonapi-resource!
+  jsonapi-record!
   jsonapi-types!
   pry
   pry-byebug

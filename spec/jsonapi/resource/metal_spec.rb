@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe JSONAPI::Resource::Metal do
+RSpec.describe JSONAPI::Record::Metal do
   let(:id) { SecureRandom.uuid }
   let(:user_relationships) { { profile: { data: { id: SecureRandom.uuid, type: "profiles" } } } }
   let(:user) { User.new(id: id, email: "user@example.com", relationships: user_relationships) }

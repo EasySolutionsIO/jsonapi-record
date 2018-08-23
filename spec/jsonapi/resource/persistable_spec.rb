@@ -2,5 +2,5 @@
 
 require "spec_helper"
 
-RSpec.describe JSONAPI::Resource::Persistable do
+RSpec.describe JSONAPI::Record::Persistable do
 end

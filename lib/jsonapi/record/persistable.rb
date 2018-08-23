@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JSONAPI
-  module Resource
+  module Record
     module Persistable
       def self.extended(base)
         base.include(Creatable)
@@ -9,12 +9,12 @@ module JSONAPI
         base.extend(Destroyable)
       end
 
-      def save(resource)
-        resource.persisted? ? update(resource) : create(resource)
+      def save(record)
+        record.persisted? ? update(record) : create(record)
       end
 
-      def save!(resource)
-        raise_exception_when_errors { save(resource) }
+      def save!(record)
+        raise_exception_when_errors { save(record) }
       end
     end
   end

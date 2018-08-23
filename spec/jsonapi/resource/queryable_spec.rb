@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe JSONAPI::Resource::Queryable do
+RSpec.describe JSONAPI::Record::Queryable do
   let(:user) { User.new(id: "1", email: "user@example.com") }
 
   describe ".all" do

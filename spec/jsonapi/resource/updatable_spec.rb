@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe JSONAPI::Resource::Updatable do
+RSpec.describe JSONAPI::Record::Updatable do
   let(:user_relationships) { { profile: { data: { id: "1", type: "profiles" } } } }
   let(:user) { User.new(id: "1", email: "user@example.com", relationships: user_relationships) }
   let(:post) { Post.new(title: "Post1", body: "Lorem Ipsum") }
@@ -18,7 +18,7 @@ RSpec.describe JSONAPI::Resource::Updatable do
       let(:status) { 200 }
       let(:body) { user.to_payload }
 
-      it "returns a persisted resource" do
+      it "returns a persisted record" do
         expect(updated_user.persisted?).to be true
       end
     end
@@ -27,7 +27,7 @@ RSpec.describe JSONAPI::Resource::Updatable do
       let(:status) { 422 }
       let(:body) { { errors: [{ title: "Example error." }] } }
 
-      it "returns a persisted resource with response errors" do
+      it "returns a persisted record with response errors" do
         expect(updated_user.persisted?).to be true
         expect(updated_user.response_errors.any?).to be true
       end

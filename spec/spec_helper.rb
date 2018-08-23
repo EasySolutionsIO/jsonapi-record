@@ -4,7 +4,7 @@ require "simplecov"
 SimpleCov.start
 
 require "bundler/setup"
-require "jsonapi-resource"
+require "jsonapi-record"
 require "pry"
 require "pry-byebug"
 require "webmock/rspec"

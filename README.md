@@ -1,9 +1,9 @@
-# JSONAPI-Resource
+# JSONAPI-Record
 
 ## Defining Resources
 
 ```ruby
-class Base < JSONAPI::Resource::Base
+class Base < JSONAPI::Record::Base
   # Sets the base_uri for your API
   base_uri "https://api.example.com"
 
@@ -45,7 +45,7 @@ user.updatable_attributes # => { email: "user@example.com", age: 28 }
 ## Defining Relationships
 
 ```ruby
-class User < JSONAPI::Resource::Base
+class User < JSONAPI::Record::Base
   type "users"
 
   relationship_to_one :profile, class_name: "Profile"

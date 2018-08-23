@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module JSONAPI
-  module Resource
+  module Record
     class Metal < Dry::Struct #  rubocop:disable Metrics/ClassLength
       # Convert string keys to symbols
       transform_keys(&:to_sym)
@@ -92,12 +92,12 @@ module JSONAPI
         end
 
         def parse(document)
-          JSONAPI::Resource::Parser.parse(document)
+          JSONAPI::Record::Parser.parse(document)
         end
 
         def resource_attribute_names
           attribute_names.reject do |attribute|
-            (JSONAPI::Resource::Base.attribute_names + relationship_names)
+            (JSONAPI::Record::Base.attribute_names + relationship_names)
               .include?(attribute)
           end
         end
