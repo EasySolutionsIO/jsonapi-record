@@ -1,18 +1,11 @@
 # frozen_string_literal: true
 
-require "jsonapi-client"
-
-require "jsonapi/resource/struct"
-require "jsonapi/resource/attributes"
-require "jsonapi/resource/uris"
 require "jsonapi/resource/parser"
-require "jsonapi/resource/relationships"
-require "jsonapi/resource/querying"
-require "jsonapi/resource/persistence"
+require "jsonapi/resource/queryable"
+require "jsonapi/resource/updatable"
+require "jsonapi/resource/creatable"
+require "jsonapi/resource/destroyable"
+require "jsonapi/resource/persistable"
+require "jsonapi/resource/metal"
 require "jsonapi/resource/base"
 require "jsonapi/resource/version"
-
-module JSONAPI
-  module Resource
-  end
-end

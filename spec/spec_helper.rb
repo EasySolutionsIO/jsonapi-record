@@ -9,40 +9,11 @@ require "pry"
 require "pry-byebug"
 require "webmock/rspec"
 
-class Base < JSONAPI::Resource::Base
-  def self.base_uri
-    "https://api.example.com"
-  end
-end
-
-class Profile < Base
-  self.type = "profiles"
-
-  resource_attribute :first_name, JSONAPI::Types::String
-  resource_attribute :last_name, JSONAPI::Types::String
-end
-
-class Post < Base
-  self.type = "posts"
-
-  resource_attribute :title, JSONAPI::Types::String, updatable: false
-  resource_attribute :body, JSONAPI::Types::String, creatable: false
-end
-
-class BlogPost < Post
-  self.type = "blog_posts"
-
-  resource_attribute :blog_name, JSONAPI::Types::String
-end
-
-class User < Base
-  self.type = "users"
-
-  resource_attribute :email, JSONAPI::Types::String
-
-  relationship_to_many :posts, class_name: "Post"
-  relationship_to_one :profile, class_name: "Profile"
-end
+require "support/base"
+require "support/profile"
+require "support/post"
+require "support/blog_post"
+require "support/user"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

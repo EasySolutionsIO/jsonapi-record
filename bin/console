@@ -6,4 +6,10 @@ require "jsonapi-resource"
 require "pry"
 require "pry-byebug"
 
+require "./spec/support/base"
+require "./spec/support/profile"
+require "./spec/support/post"
+require "./spec/support/blog_post"
+require "./spec/support/user"
+
 Pry.start

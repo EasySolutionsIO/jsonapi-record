@@ -5,19 +5,15 @@
 ```ruby
 class Base < JSONAPI::Resource::Base
   # Sets the base_uri for your API
-  def self.base_uri
-    "https://api.example.com"
-  end
+  base_uri "https://api.example.com"
 
   # Sets the default headers for your API requests
-  def delf.default_headers
-    { authorization: "Bearer Token" }
-  end
+  default_headers(authorization: "Bearer Token")
 end
 
 class User < Base
   # Define JSON:API resource type
-  self.type = "users"
+  type "users"
 end
 ```
 
@@ -25,11 +21,19 @@ end
 
 ```ruby
 class User < Base
-  self.type = "users"
+  type "users"
 
-  resource_attribute :email, JSONAPI::Types::String
-  resource_attribute :name, JSONAPI::Types::String, updatable: false
-  resource_attribute :age, JSONAPI::Types::String, creatable: false
+  attribute :email, JSONAPI::Types::String
+  attribute :name, JSONAPI::Types::String, updatable: false
+  attribute :age, JSONAPI::Types::String, creatable: false
+
+  def self.creatable_attribute_names
+    super - [:age]
+  end
+
+  def self.updatable_attribute_names
+    super - [:name]
+  end
 end
 
 user = User.new(email: "user@example.com", name: "User", age: 28)
@@ -42,7 +46,7 @@ user.updatable_attributes # => { email: "user@example.com", age: 28 }
 
 ```ruby
 class User < JSONAPI::Resource::Base
-  self.type = "users"
+  type "users"
 
   relationship_to_one :profile, class_name: "Profile"
   relationship_to_many :posts, class_name: "Post"
