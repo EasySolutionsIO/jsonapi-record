@@ -31,30 +31,31 @@ module JSONAPI
       attribute :persisted, Types::Bool.default(false)
 
       class << self
+        # @example
+        #  User.collection_uri #=> "https://api.example.com/users"
         def collection_uri
           URI.join(base_uri, collection_path).to_s
         end
 
+        # @param id [String]
+        # @return [String]
+        # @example
+        #  User.individual_uri("1") #=> "https://api.example.com/users/1"
         def individual_uri(id)
           URI.join(base_uri, individual_path(id)).to_s
         end
 
+        # @param id [String]
+        # @param relationship_name [String]
+        # @return [String]
+        # @example
+        #  User.related_resource_uri("1", "posts") #=> "https://api.example.com/users/1/posts"
         def related_resource_uri(id, relationship_name)
           URI.join(base_uri, related_resource_path(id, relationship_name)).to_s
         end
 
-        def collection_path
-          "/#{type}"
-        end
-
-        def individual_path(id)
-          "#{collection_path}/#{id}"
-        end
-
-        def related_resource_path(id, relationship_name)
-          "#{individual_path(id)}/#{relationship_name}"
-        end
-
+        # @param name [String] the name of the relationship singularized.
+        # @param class_name [String] the class of the relationship as a string.
         def relationship_to_one(name, class_name:)
           klass = Object.const_get(class_name)
           attribute(name, klass)
@@ -62,6 +63,8 @@ module JSONAPI
           store_relationship(name)
         end
 
+        # @param name [String] the name of the relationship pluralized.
+        # @param class_name [String] the class of the relationship as a string.
         def relationship_to_many(name, class_name:)
           klass = Object.const_get(class_name)
           attribute(name, JSONAPI::Types::Array(klass).default([]))
@@ -69,6 +72,64 @@ module JSONAPI
           store_relationship(name)
         end
 
+        # @param uri [String]
+        # @param query [Hash]
+        # @return [Hash]
+        def fetch(uri, query = {})
+          parse(JSONAPI::Client.fetch(uri, default_headers, query))
+        end
+
+        # @param uri [String]
+        # @param query [Hash]
+        # @return [JSONAPI::Record::Metal]
+        def fetch_resource(uri, query = {})
+          new(fetch(uri, query))
+        end
+
+        # @param uri [String]
+        # @param query [Hash]
+        # @return [Array<JSONAPI::Record::Metal>]
+        def fetch_collection(uri, query = {})
+          fetch(uri, query).map { |attributes| new(attributes) }
+        end
+
+        # @param document [JSONAPI::Types::Info, JSONAPI::Types::Success, JSONAPI::Types::Failure]
+        # @return [Hash]
+        def parse(document)
+          JSONAPI::Record::Parser.parse(document)
+        end
+
+        # Returns the names of the resource attributes.
+        # @return [Array<Symbol>]
+        def resource_attribute_names
+          attribute_names.reject do |attribute|
+            (JSONAPI::Record::Base.attribute_names + relationship_names)
+              .include?(attribute)
+          end
+        end
+
+        private
+
+        # @return [String]
+        def collection_path
+          "/#{type}"
+        end
+
+        # @param id [String]
+        # @return [String]
+        def individual_path(id)
+          "#{collection_path}/#{id}"
+        end
+
+        # @param id [String]
+        # @param relationship_name [String]
+        # @return [String]
+        def related_resource_path(id, relationship_name)
+          "#{individual_path(id)}/#{relationship_name}"
+        end
+
+        # @param name [String]
+        # @return [Array<Symbol>]
         def store_relationship(name)
           relationship_names(relationship_names + [name])
         end
@@ -79,31 +140,6 @@ module JSONAPI
           end
         end
 
-        def fetch(uri, query = {})
-          parse(JSONAPI::Client.fetch(uri, default_headers, query))
-        end
-
-        def fetch_resource(uri, query = {})
-          new(fetch(uri, query))
-        end
-
-        def fetch_collection(uri, query = {})
-          fetch(uri, query).map { |attributes| new(attributes) }
-        end
-
-        def parse(document)
-          JSONAPI::Record::Parser.parse(document)
-        end
-
-        def resource_attribute_names
-          attribute_names.reject do |attribute|
-            (JSONAPI::Record::Base.attribute_names + relationship_names)
-              .include?(attribute)
-          end
-        end
-
-        private
-
         def raise_exception_when_errors(&block)
           yield(block).tap do |resource|
             if (errors = resource.response_errors)
@@ -113,18 +149,29 @@ module JSONAPI
         end
       end
 
+      # @return [String]
+      # @example
+      #  User.new.collection_uri #=> "https://api.example.com/users"
       def collection_uri
         self.class.collection_uri
       end
 
+      # @return [String]
+      # @example
+      #  User.new(id: "1").individual_uri #=> "https://api.example.com/users/1"
       def individual_uri
         self.class.individual_uri(id)
       end
 
+      # @return [String]
+      # @example
+      #  User.new(id: "1").related_resource_uri("posts") #=> "https://api.example.com/users/1/posts"
       def related_resource_uri(relationship_name)
         self.class.related_resource_uri(id, relationship_name)
       end
 
+      # Returns the resource attributes.
+      # @return [Hash]
       def resource_attributes
         attributes.slice(*self.class.resource_attribute_names)
       end
@@ -133,14 +180,24 @@ module JSONAPI
         persisted
       end
 
+      # @return [Hash]
+      # @example
+      #  User.new(id: "1").to_relationship #=> "{ data: { id: "1", type: "users" } }"
       def to_relationship
         { data: identifier }
       end
 
+      # @return [Hash]
+      # @example
+      #  User.new(id: "1").identifier #=> "{ id: "1", type: "users" }"
       def identifier
         { id: id, type: self.class.type }
       end
 
+      # @return [Hash]
+      # @example
+      #  User.new(id: "1", name: "Rick").to_payload
+      #  #=> "{ data: { id: "1", type: "users" }, attributes: { name: "Rick" } }"
       def to_payload
         { data: data }
       end

@@ -3,6 +3,8 @@
 module JSONAPI
   module Record
     module Destroyable
+      # @param record [JSONAPI::Record::Base]
+      # @return [JSONAPI::Record::Base]
       def destroy(record)
         response_document = JSONAPI::Client.delete(individual_uri(record.id), default_headers)
 
@@ -16,6 +18,9 @@ module JSONAPI
         end
       end
 
+      # @param record [JSONAPI::Record::Base]
+      # @raise [JSONAPI::Client::UnprocessableEntity] if destroy fails.
+      # @return [JSONAPI::Record::Base]
       def destroy!(record)
         raise_exception_when_errors { destroy(record) }
       end

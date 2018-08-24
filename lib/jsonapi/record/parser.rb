@@ -7,12 +7,15 @@ module JSONAPI
 
       private_class_method :new
 
+      # @param document [JSONAPI::Types::Info, JSONAPI::Types::Success, JSONAPI::Types::Failure]
+      # @return [Hash]
       def self.parse(document)
         new(document).send(:parse)
       end
 
       private
 
+      # @param document [JSONAPI::Types::Info, JSONAPI::Types::Success, JSONAPI::Types::Failure]
       def initialize(document)
         @document = document
       end
