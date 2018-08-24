@@ -2,13 +2,12 @@
 
 require "spec_helper"
 
-RSpec.describe JSONAPI::Record::Persistable do
-  let(:user_relationships) { { profile: { data: { id: "1", type: "profiles" } } } }
-  let(:user) { User.new(id: "1", email: "user@example.com", relationships: user_relationships) }
+RSpec.describe JSONAPI::Record::Creatable do
+  let(:user) { User.new(id: "1", email: "user@example.com") }
   let(:post) { Post.new(title: "Post1", body: "Lorem Ipsum") }
 
   describe ".create" do
-    let(:created_user) { User.save(user) }
+    let(:created_user) { User.create(user) }
 
     before do
       stub_request(:post, User.collection_uri).to_return(status: status, body: body.to_json)

@@ -24,8 +24,8 @@ class User < Base
   type "users"
 
   attribute :email, JSONAPI::Types::String
-  attribute :name, JSONAPI::Types::String, updatable: false
-  attribute :age, JSONAPI::Types::String, creatable: false
+  attribute :name, JSONAPI::Types::String
+  attribute :age, JSONAPI::Types::String
 
   def self.creatable_attribute_names
     super - [:age]

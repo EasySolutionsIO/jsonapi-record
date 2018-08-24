@@ -3,12 +3,11 @@
 require "spec_helper"
 
 RSpec.describe JSONAPI::Record::Updatable do
-  let(:user_relationships) { { profile: { data: { id: "1", type: "profiles" } } } }
-  let(:user) { User.new(id: "1", email: "user@example.com", relationships: user_relationships) }
+  let(:user) { User.new(id: "1", email: "user@example.com") }
   let(:post) { Post.new(title: "Post1", body: "Lorem Ipsum") }
 
   describe ".update" do
-    let(:updated_user) { User.save(user.new(email: "change@example.com", persisted: true)) }
+    let(:updated_user) { User.update(user.new(email: "change@example.com", persisted: true)) }
 
     before do
       stub_request(:patch, User.individual_uri(user.id)).to_return(status: status, body: body.to_json)
