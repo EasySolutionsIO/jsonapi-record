@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Update README.md
 - Refactor classes structure and tests.
 - Rename the gem to `jsonapi-record`.
 - Rename `request_payload` to `to_payload`.
@@ -16,6 +17,9 @@
 
 ### Added
 
+- CODE_OF_CONDUCT.md
+- CONTRIBUTING.md
+- Add documentation comments.
 - Add `payload_attributes_for_create` method.
 - Add `payload_attributes_for_update` method.
 - Add a way to override `createable_attribute_names`.
