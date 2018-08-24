@@ -1,18 +1,10 @@
 GIT
   remote: https://github.com/InspireNL/jsonapi-client
-  revision: 7f780fc282a5f9d5430ced3b3713e80640532381
+  revision: 74ff13fa933f7e627a0e9969722798e9aa19bf55
   specs:
-    jsonapi-client (0.1.2)
+    jsonapi-client (0.1.4)
       http (~> 3.0)
-      jsonapi-types
-
-GIT
-  remote: https://github.com/InspireNL/jsonapi-types
-  revision: 6471e7d1293749ec30444d117df7ba6b9857c6ee
-  specs:
-    jsonapi-types (0.1.0)
-      dry-struct (~> 0.5)
-      dry-types (~> 0.13)
+      jsonapi-types (~> 0.1)
 
 PATH
   remote: .
@@ -71,6 +63,9 @@ GEM
     http_parser.rb (0.6.0)
     ice_nine (0.11.2)
     json (2.1.0)
+    jsonapi-types (0.1.1)
+      dry-struct (~> 0.5)
+      dry-types (~> 0.13)
     method_source (0.9.0)
     pry (0.11.3)
       coderay (~> 1.1.0)
@@ -116,13 +111,12 @@ DEPENDENCIES
   bundler (~> 1.16)
   jsonapi-client!
   jsonapi-record!
-  jsonapi-types!
-  pry
-  pry-byebug
+  pry (~> 0.11)
+  pry-byebug (~> 3.6)
   rake (~> 12.0)
   rspec (~> 3.0)
-  rspec_junit_formatter
-  simplecov
+  rspec_junit_formatter (~> 0.4)
+  simplecov (~> 0.16)
   webmock (~> 3.0)
 
 BUNDLED WITH
