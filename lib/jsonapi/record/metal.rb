@@ -58,7 +58,7 @@ module JSONAPI
         # @param class_name [String] the class of the relationship as a string.
         def relationship_to_one(name, class_name:)
           klass = Object.const_get(class_name)
-          attribute(name, klass)
+          attribute(name, Types::Definition(klass))
           define_fetch_relationship_method(name, klass, :fetch_related_resource)
           store_relationship(name)
         end
