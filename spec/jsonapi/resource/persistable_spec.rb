@@ -7,7 +7,7 @@ RSpec.describe JSONAPI::Record::Persistable do
   let(:post) { Post.new(title: "Post1", body: "Lorem Ipsum") }
 
   describe ".save" do
-    context "when recors is not persisted" do
+    context "when record is not persisted" do
       let(:created_user) { User.save(user) }
       let(:status) { 201 }
       let(:body) { user.to_payload }
@@ -21,7 +21,7 @@ RSpec.describe JSONAPI::Record::Persistable do
       end
     end
 
-    context "when recors is already respisted" do
+    context "when record is already respisted" do
       let(:updated_user) { User.save(user.new(email: "change@example.com", persisted: true)) }
       let(:status) { 200 }
       let(:body) { user.to_payload }

@@ -12,7 +12,7 @@ module JSONAPI
 
       # @param id [String]
       # @param query [Hash]
-      # @return [nil] if resource doens't exits.
+      # @return [nil] if resource doesn't exits.
       # @return [JSONAPI::Record::Base]
       def find(id, query = {})
         find!(id, query)
