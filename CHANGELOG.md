@@ -1,5 +1,31 @@
 # Changelog
 
+## [0.2.0] Unreleased
+
+### Changed
+
+- Update README.md
+- Refactor classes structure and tests.
+- Rename the gem to `jsonapi-record`.
+- Rename `request_payload` to `to_payload`.
+- Rename `attributes_for_request` to `payload_attributes`.
+- Rename `relationships_for_request` to `payload_relationships`.
+
+### Removed
+
+- Removed `resource_attribute` method and replaced with just `attribute`.
+
+### Added
+
+- CODE_OF_CONDUCT.md
+- CONTRIBUTING.md
+- Add documentation comments.
+- Add `payload_attributes_for_create` method.
+- Add `payload_attributes_for_update` method.
+- Add a way to override `createable_attribute_names`.
+- Add a way to override `updatable_attribute_names`.
+
+
 ## [0.1.3] 2018-06-22
 
 ### Removed

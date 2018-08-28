@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe JSONAPI::Resource::Querying do
+RSpec.describe JSONAPI::Record::Queryable do
   let(:user) { User.new(id: "1", email: "user@example.com") }
 
   describe ".all" do
@@ -26,7 +26,7 @@ RSpec.describe JSONAPI::Resource::Querying do
     context "when response status is 200" do
       let!(:get_request_sub) do
         stub_request(:get, User.individual_uri(user.id))
-          .to_return(status: 200, body: user.request_payload.to_json)
+          .to_return(status: 200, body: user.to_payload.to_json)
       end
 
       it "performs a get request to fetch a specific user" do

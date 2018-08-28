@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/jsonapi-resource
+    working_directory: ~/jsonapi-record
     docker:
       - image: circleci/ruby:2.5.1
         environment:
@@ -20,8 +20,8 @@ jobs:
       # Restore bundle cache
       - restore_cache:
           keys:
-            - jsonapi-resource-bundle-v2-{{ checksum "Gemfile.lock" }}
-            - jsonapi-resource-bundle-v2-
+            - jsonapi-record-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - jsonapi-record-bundle-v2-
 
       - run:
           name: Bundle Install
@@ -29,7 +29,7 @@ jobs:
 
       # Store bundle cache
       - save_cache:
-          key: jsonapi-resource-bundle-v2-{{ checksum "Gemfile.lock" }}
+          key: jsonapi-record-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
 
