@@ -13,7 +13,7 @@ module JSONAPI
         def update(record)
           response_document =
             JSONAPI::Client.update(
-              individual_uri(record.id), default_headers, record.payload_attributes_for_update
+              individual_uri(record.id), default_headers, record.to_payload
             )
 
           case response_document
@@ -42,6 +42,11 @@ module JSONAPI
       # @return [Hash]
       def updatable_attributes
         attributes.slice(*self.class.updatable_attribute_names)
+      end
+
+      # Override #payload_attributes
+      def payload_attributes
+        payload_attributes_for_update
       end
 
       # Returns the attributes for the payload for patch request.

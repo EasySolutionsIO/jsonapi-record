@@ -3,8 +3,11 @@
 module JSONAPI
   module Record
     class Base < Metal
-      extend Queryable
-      extend Persistable
+      include Queryable
+      include Destroyable
+      include Creatable
+      include Updatable
+      include Persistable
     end
   end
 end

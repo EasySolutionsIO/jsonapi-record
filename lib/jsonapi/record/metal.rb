@@ -197,7 +197,7 @@ module JSONAPI
       # @return [Hash]
       # @example
       #  User.new(id: "1", name: "Rick").to_payload
-      #  #=> "{ data: { id: "1", type: "users" }, attributes: { name: "Rick" } }"
+      #  #=> "{ data: { id: "1", type: "users", attributes: { name: "Rick" } } }"
       def to_payload
         { data: data }
       end
