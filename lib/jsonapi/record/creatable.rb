@@ -13,7 +13,7 @@ module JSONAPI
         def create(record)
           response_document =
             JSONAPI::Client.create(
-              collection_uri, default_headers, record.payload_attributes_for_create
+              collection_uri, default_headers, record.to_payload
             )
 
           case response_document
@@ -55,6 +55,11 @@ module JSONAPI
       # @return [Hash]
       def creatable_attributes
         attributes.slice(*self.class.creatable_attribute_names)
+      end
+
+      # Override #payload_attributes
+      def payload_attributes
+        payload_attributes_for_create
       end
 
       # Returns the attributes for the payload for post request.

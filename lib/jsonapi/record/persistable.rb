@@ -3,24 +3,29 @@
 module JSONAPI
   module Record
     module Persistable
-      def self.extended(base)
-        base.include(Creatable)
-        base.include(Updatable)
-        base.extend(Destroyable)
+      def self.included(base)
+        base.extend(ClassMethods)
       end
 
-      # Calls `.create` if the record is persisted, otherwise calls `.update`.
-      # @param record [JSONAPI::Record::Base]
-      # @return [JSONAPI::Record::Base]
-      def save(record)
-        record.persisted? ? update(record) : create(record)
+      module ClassMethods
+        # Calls `.create` if the record is persisted, otherwise calls `.update`.
+        # @param record [JSONAPI::Record::Base]
+        # @return [JSONAPI::Record::Base]
+        def save(record)
+          record.persisted? ? update(record) : create(record)
+        end
+
+        # @param record [JSONAPI::Record::Base]
+        # @raise [JSONAPI::Client::UnprocessableEntity] if save fails.
+        # @return [JSONAPI::Record::Base]
+        def save!(record)
+          raise_exception_when_errors { save(record) }
+        end
       end
 
-      # @param record [JSONAPI::Record::Base]
-      # @raise [JSONAPI::Client::UnprocessableEntity] if save fails.
-      # @return [JSONAPI::Record::Base]
-      def save!(record)
-        raise_exception_when_errors { save(record) }
+      # Override #payload_attributes
+      def payload_attributes
+        persisted? ? payload_attributes_for_update : payload_attributes_for_create
       end
     end
   end
