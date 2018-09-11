@@ -3,8 +3,8 @@
 class Post < Base
   type "posts"
 
-  attribute :title, JSONAPI::Types::String
-  attribute :body, JSONAPI::Types::String
+  attribute :title, Types::String
+  attribute :body, Types::String
 
   def self.creatable_attribute_names
     super - [:body]

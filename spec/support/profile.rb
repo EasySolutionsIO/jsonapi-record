@@ -3,6 +3,6 @@
 class Profile < Base
   type "profiles"
 
-  attribute :first_name, JSONAPI::Types::String
-  attribute :last_name, JSONAPI::Types::String
+  attribute :first_name, Types::String
+  attribute :last_name, Types::String
 end

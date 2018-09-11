@@ -17,9 +17,9 @@ module JSONAPI
             )
 
           case response_document
-          when JSONAPI::Types::Success, JSONAPI::Types::Failure
+          when Types::Success, Types::Failure
             record.new(parse(response_document))
-          when JSONAPI::Types::Document
+          when Types::Document
             record.new(persisted: true)
           end
         end
