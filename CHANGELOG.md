@@ -39,6 +39,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add a way to override `updatable_attribute_names`.
 
 
+## [Unreleased]
+
+## Changed
+
+- Update README.
+
 ## 0.1.3 - 2018-06-22
 
 ### Removed

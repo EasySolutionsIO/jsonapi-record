@@ -58,9 +58,9 @@ Defining resource attributes:
 class User < Base
   type "users"
 
-  attribute :email, JSONAPI::Types::String
-  attribute :name, JSONAPI::Types::String
-  attribute :age, JSONAPI::Types::String
+  attribute :email, Types::String
+  attribute :name, Types::String
+  attribute :age, Types::String
 
   def self.creatable_attribute_names
     super - [:age]
