@@ -44,7 +44,7 @@ RSpec.describe JSONAPI::Record::Updatable do
     end
 
     it "raises an exception when saved resource contains errors" do
-      expect { User.update!(user) }.to raise_error JSONAPI::Client::UnprocessableEntity
+      expect { User.update!(user) }.to raise_error JSONAPI::SimpleClient::UnprocessableEntity
     end
   end
 

@@ -44,7 +44,7 @@ RSpec.describe JSONAPI::Record::Creatable do
     end
 
     it "raises an exception when saved record contains errors" do
-      expect { User.create!(user) }.to raise_error JSONAPI::Client::UnprocessableEntity
+      expect { User.create!(user) }.to raise_error JSONAPI::SimpleClient::UnprocessableEntity
     end
   end
 
@@ -72,7 +72,7 @@ RSpec.describe JSONAPI::Record::Creatable do
     end
 
     it "raises an exception when created record contains errors" do
-      expect { User.create_with!({}) }.to raise_error JSONAPI::Client::UnprocessableEntity
+      expect { User.create_with!({}) }.to raise_error JSONAPI::SimpleClient::UnprocessableEntity
     end
   end
 

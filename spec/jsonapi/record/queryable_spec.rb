@@ -37,8 +37,8 @@ RSpec.describe JSONAPI::Record::Queryable do
     context "when response status is 404" do
       before { stub_request(:get, User.individual_uri(user.id)).to_return(status: 404) }
 
-      it "raises a JSONAPI::Client::NotFound error" do
-        expect { fetched_user }.to raise_error JSONAPI::Client::NotFound
+      it "raises a JSONAPI::SimpleClient::NotFound error" do
+        expect { fetched_user }.to raise_error JSONAPI::SimpleClient::NotFound
       end
     end
   end

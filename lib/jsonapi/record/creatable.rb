@@ -12,7 +12,7 @@ module JSONAPI
         # @return [JSONAPI::Record::Base]
         def create(record)
           response_document =
-            JSONAPI::Client.create(
+            JSONAPI::SimpleClient.create(
               collection_uri, default_headers, record.to_payload
             )
 
@@ -25,7 +25,7 @@ module JSONAPI
         end
 
         # @param record [JSONAPI::Record::Base]
-        # @raise [JSONAPI::Client::UnprocessableEntity] if create fails.
+        # @raise [JSONAPI::SimpleClient::UnprocessableEntity] if create fails.
         # @return [JSONAPI::Record::Base]
         def create!(record)
           raise_exception_when_errors { create(record) }
@@ -38,7 +38,7 @@ module JSONAPI
         end
 
         # @param attributes [Hash]
-        # @raise [JSONAPI::Client::UnprocessableEntity] if create fails.
+        # @raise [JSONAPI::SimpleClient::UnprocessableEntity] if create fails.
         # @return [JSONAPI::Record::Base]
         def create_with!(attributes)
           create!(new(attributes))

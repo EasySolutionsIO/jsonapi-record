@@ -44,7 +44,7 @@ RSpec.describe JSONAPI::Record::Destroyable do
     end
 
     it "raises an exception when deleted record contains errors" do
-      expect { User.destroy!(user) }.to raise_error JSONAPI::Client::UnprocessableEntity
+      expect { User.destroy!(user) }.to raise_error JSONAPI::SimpleClient::UnprocessableEntity
     end
   end
 end

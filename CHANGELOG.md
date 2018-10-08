@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Rename `request_payload` to `to_payload`.
 - Rename `attributes_for_request` to `payload_attributes`.
 - Rename `relationships_for_request` to `payload_relationships`.
+- Rename `jsonapi-client` to `jsonapi-simple_client`.
 
 ### Removed
 

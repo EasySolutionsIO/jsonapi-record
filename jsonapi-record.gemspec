@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "jsonapi-client"
+  spec.add_runtime_dependency "jsonapi-simple_client", "~> 0.2"
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "pry", "~> 0.11"

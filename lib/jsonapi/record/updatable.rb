@@ -12,7 +12,7 @@ module JSONAPI
         # @return [JSONAPI::Record::Base]
         def update(record)
           response_document =
-            JSONAPI::Client.update(
+            JSONAPI::SimpleClient.update(
               individual_uri(record.id), default_headers, record.to_payload
             )
 
@@ -25,7 +25,7 @@ module JSONAPI
         end
 
         # @param record [JSONAPI::Record::Base]
-        # @raise [JSONAPI::Client::UnprocessableEntity] if update fails.
+        # @raise [JSONAPI::SimpleClient::UnprocessableEntity] if update fails.
         # @return [JSONAPI::Record::Base]
         def update!(record)
           raise_exception_when_errors { update(record) }

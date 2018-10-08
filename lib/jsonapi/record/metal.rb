@@ -80,7 +80,7 @@ module JSONAPI
         # @param query [Hash]
         # @return [Hash]
         def fetch(uri, query = {})
-          parse(JSONAPI::Client.fetch(uri, default_headers, query))
+          parse(JSONAPI::SimpleClient.fetch(uri, default_headers, query))
         end
 
         # @param uri [String]
@@ -147,7 +147,7 @@ module JSONAPI
         def raise_exception_when_errors(&block)
           yield(block).tap do |resource|
             if (errors = resource.response_errors)
-              raise JSONAPI::Client::UnprocessableEntity, errors
+              raise JSONAPI::SimpleClient::UnprocessableEntity, errors
             end
           end
         end
