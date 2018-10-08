@@ -7,7 +7,7 @@ RSpec.describe JSONAPI::Record::Destroyable do
   let(:user) { User.new(id: "1", email: "user@example.com", relationships: user_relationships) }
 
   describe ".destroy" do
-    let(:deleted_user) { User.destroy(user.new(persisted: true)) }
+    subject(:deleted_user) { User.destroy(user.new(persisted: true)) }
 
     before do
       stub_request(:delete, User.individual_uri(user.id)).to_return(status: status, body: body.to_json)
@@ -26,9 +26,12 @@ RSpec.describe JSONAPI::Record::Destroyable do
       let(:status) { 422 }
       let(:body) { { errors: [{ title: "Example error." }] } }
 
-      it "returns a persited record with response errors" do
-        expect(deleted_user.persisted?).to be true
-        expect(deleted_user.response_errors.any?).to be true
+      it "returns a persisted record" do
+        expect(deleted_user.persisted?).to be(true)
+      end
+
+      it "loads errors" do
+        expect(deleted_user.response_errors.any?).to be(true)
       end
     end
   end
@@ -41,7 +44,7 @@ RSpec.describe JSONAPI::Record::Destroyable do
     end
 
     it "raises an exception when deleted record contains errors" do
-      expect { User.destroy!(user) }.to raise_error JSONAPI::Client::UnprocessableEntity
+      expect { User.destroy!(user) }.to raise_error JSONAPI::SimpleClient::UnprocessableEntity
     end
   end
 end

@@ -4,7 +4,5 @@ source "https://rubygems.org"
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem "jsonapi-client", github: "InspireNL/jsonapi-client"
-
-# Specify your gem's dependencies in jsonapi-client.gemspec
+# Specify your gem's dependencies in jsonapi-record.gemspec
 gemspec

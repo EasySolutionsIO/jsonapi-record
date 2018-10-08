@@ -22,9 +22,9 @@ module JSONAPI
 
       def parse
         case document
-        when JSONAPI::Types::Info then parse_info_document
-        when JSONAPI::Types::Success then parse_success_document
-        when JSONAPI::Types::Failure then parse_failure_document
+        when Types::Info then parse_info_document
+        when Types::Success then parse_success_document
+        when Types::Failure then parse_failure_document
         end
       end
 
@@ -35,7 +35,7 @@ module JSONAPI
       def parse_success_document
         case document.data
         when Array then parse_resource_collection(document.data)
-        when JSONAPI::Types::Resource then parse_resource(document.data)
+        when Types::Resource then parse_resource(document.data)
         when NilClass
           {}
         end
@@ -72,7 +72,7 @@ module JSONAPI
         case relationship.data
         when Array
           parse_relationship_to_many(relationship)
-        when JSONAPI::Types::ResourceIdentifier
+        when Types::ResourceIdentifier
           parse_relationship_to_one(relationship)
         end
       end

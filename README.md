@@ -1,7 +1,11 @@
 # JSONAPI-Record
 
 [![Gem](https://img.shields.io/gem/v/jsonapi-record.svg?style=flat)](http://rubygems.org/gems/jsonapi-record)
-[![CircleCI](https://img.shields.io/circleci/project/github/InspireNL/jsonapi-record.svg)](https://circleci.com/gh/InspireNL/jsonapi-record)
+[![Depfu](https://badges.depfu.com/badges/adeedb0010fe47bd4696dbae47861162/overview.svg)](https://depfu.com/github/InspireNL/jsonapi-record?project_id=5748)
+[![Inline docs](http://inch-ci.org/github/InspireNL/jsonapi-record.svg?branch=master&style=shields)](http://inch-ci.org/github/InspireNL/jsonapi-record)
+[![CircleCI](https://circleci.com/gh/InspireNL/jsonapi-record.svg?style=svg)](https://circleci.com/gh/InspireNL/jsonapi-record)
+[![Maintainability](https://api.codeclimate.com/v1/badges/199dc1ae2e10dbd79e9c/maintainability)](https://codeclimate.com/github/InspireNL/jsonapi-record/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/199dc1ae2e10dbd79e9c/test_coverage)](https://codeclimate.com/github/InspireNL/jsonapi-record/test_coverage)
 
 Client framework for interacting JSON:API Spec compliant APIs in Ruby.
 
@@ -162,4 +166,4 @@ Read [Semantic Versioning](https://semver.org) for details. Briefly, it means:
 ## License
 
 Copyright 2018 [Inspire Innovation BV](https://inspire.nl).
-Read [LICENSE](LICENSE.md) for details.
+Read [LICENSE](LICENSE) for details.

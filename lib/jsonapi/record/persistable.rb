@@ -16,7 +16,7 @@ module JSONAPI
         end
 
         # @param record [JSONAPI::Record::Base]
-        # @raise [JSONAPI::Client::UnprocessableEntity] if save fails.
+        # @raise [JSONAPI::SimpleClient::UnprocessableEntity] if save fails.
         # @return [JSONAPI::Record::Base]
         def save!(record)
           raise_exception_when_errors { save(record) }

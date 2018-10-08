@@ -3,6 +3,10 @@
 module JSONAPI
   module Record
     class Metal < Dry::Struct #  rubocop:disable Metrics/ClassLength
+      module Types
+        include JSONAPI::Types
+      end
+
       # Convert string keys to symbols
       transform_keys(&:to_sym)
 
@@ -22,12 +26,12 @@ module JSONAPI
       default_headers({})
 
       attribute :id, Types::String
-      attribute :meta, JSONAPI::Types::Meta
-      attribute :links, JSONAPI::Types::Links
-      attribute :relationships, JSONAPI::Types::Relationships
-      attribute :top_level_links, JSONAPI::Types::Links
-      attribute :top_level_meta, JSONAPI::Types::Meta
-      attribute :response_errors, JSONAPI::Types::Array(JSONAPI::Types::Error)
+      attribute :meta, Types::Meta
+      attribute :links, Types::Links
+      attribute :relationships, Types::Relationships
+      attribute :top_level_links, Types::Links
+      attribute :top_level_meta, Types::Meta
+      attribute :response_errors, Types::Array(Types::Error)
       attribute :persisted, Types::Bool.default(false)
 
       class << self
@@ -67,7 +71,7 @@ module JSONAPI
         # @param class_name [String] the class of the relationship as a string.
         def relationship_to_many(name, class_name:)
           klass = Object.const_get(class_name)
-          attribute(name, JSONAPI::Types::Array(klass).default([]))
+          attribute(name, Types::Array(klass).default([]))
           define_fetch_relationship_method(name, klass, :fetch_related_collection)
           store_relationship(name)
         end
@@ -76,7 +80,7 @@ module JSONAPI
         # @param query [Hash]
         # @return [Hash]
         def fetch(uri, query = {})
-          parse(JSONAPI::Client.fetch(uri, default_headers, query))
+          parse(JSONAPI::SimpleClient.fetch(uri, default_headers, query))
         end
 
         # @param uri [String]
@@ -143,7 +147,7 @@ module JSONAPI
         def raise_exception_when_errors(&block)
           yield(block).tap do |resource|
             if (errors = resource.response_errors)
-              raise JSONAPI::Client::UnprocessableEntity, errors
+              raise JSONAPI::SimpleClient::UnprocessableEntity, errors
             end
           end
         end

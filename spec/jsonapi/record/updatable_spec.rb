@@ -26,9 +26,12 @@ RSpec.describe JSONAPI::Record::Updatable do
       let(:status) { 422 }
       let(:body) { { errors: [{ title: "Example error." }] } }
 
-      it "returns a persisted record with response errors" do
-        expect(updated_user.persisted?).to be true
-        expect(updated_user.response_errors.any?).to be true
+      it "returns a persisted record" do
+        expect(updated_user.persisted?).to be(true)
+      end
+
+      it "loads errors" do
+        expect(updated_user.response_errors.any?).to be(true)
       end
     end
   end
@@ -41,7 +44,7 @@ RSpec.describe JSONAPI::Record::Updatable do
     end
 
     it "raises an exception when saved resource contains errors" do
-      expect { User.update!(user) }.to raise_error JSONAPI::Client::UnprocessableEntity
+      expect { User.update!(user) }.to raise_error JSONAPI::SimpleClient::UnprocessableEntity
     end
   end
 

@@ -21,7 +21,7 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = Dir["README*", "LICENSE*"]
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "jsonapi-client"
+  spec.add_runtime_dependency "jsonapi-simple_client", "~> 0.2"
 
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "pry", "~> 0.11"
@@ -29,6 +29,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rake", "~> 12.0"
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "rspec_junit_formatter", "~> 0.4"
+  spec.add_development_dependency "rubocop", "~> 0.59"
+  spec.add_development_dependency "rubocop-rspec", "~> 1.29"
   spec.add_development_dependency "simplecov", "~> 0.16"
   spec.add_development_dependency "webmock", "~> 3.0"
 end

@@ -10,7 +10,7 @@ module JSONAPI
       module ClassMethods
         # @param id [String]
         # @param query [Hash]
-        # @raise [JSONAPI::Client::NotFound] if resource doesn't exist.
+        # @raise [JSONAPI::SimpleClient::NotFound] if resource doesn't exist.
         def find!(id, query = {})
           fetch_resource(individual_uri(id), query)
         end
@@ -21,7 +21,7 @@ module JSONAPI
         # @return [JSONAPI::Record::Base]
         def find(id, query = {})
           find!(id, query)
-        rescue JSONAPI::Client::NotFound
+        rescue JSONAPI::SimpleClient::NotFound
           nil
         end
 

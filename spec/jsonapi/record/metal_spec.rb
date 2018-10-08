@@ -53,21 +53,22 @@ RSpec.describe JSONAPI::Record::Metal do
   end
 
   describe ".resource_attribute_names" do
-    subject { dummy_class.resource_attribute_names }
+    subject(:names) { dummy_class.resource_attribute_names }
 
-    context "for Post" do
-      let(:dummy_class) { Post }
+    let(:dummy_class) { Post }
 
-      it { is_expected.to contain_exactly(:title, :body) }
+    it "returns the resource attribute names of the class" do
+      expect(names).to contain_exactly(:title, :body)
     end
 
-    context "for BlogPost" do
+    context "with a class that inherits attributes" do
       let(:dummy_class) { BlogPost }
 
-      it { is_expected.to contain_exactly(:title, :body, :blog_name) }
+      it "returns the attribute names of the parent and the ones of the class" do
+        expect(names).to contain_exactly(:title, :body, :blog_name)
+      end
     end
   end
-
 
   describe "#colletion_uri" do
     it "returns collection_uri" do
@@ -128,23 +129,25 @@ RSpec.describe JSONAPI::Record::Metal do
   end
 
   describe "#fetch_related_collection" do
-    let(:post) { Post.new(id: "1") }
-    let(:posts) { user.fetch_posts }
-    let!(:get_request_stub) do
+    subject(:posts) { user.fetch_posts }
+
+    let(:post) { Post.new(id: "1", persisted: true) }
+
+    before do
       stub_request(:get, User.related_resource_uri(user.id, "posts"))
         .to_return(status: 200, body: { data: [post.data] }.to_json)
     end
 
     it "generates a get request to fetch a related collection" do
-      expect(posts).to be_an Array
-      expect(posts.first.id).to eq post.id
+      expect(posts).to include(post)
     end
   end
 
   describe "#fetch_related_resource" do
     let(:profile) { Profile.new(id: "1") }
     let(:fetched_profile) { user.fetch_profile }
-    let!(:get_request_stub) do
+
+    before do
       stub_request(:get, User.related_resource_uri(user.id, "profile"))
         .to_return(status: 200, body: profile.to_payload.to_json)
     end
