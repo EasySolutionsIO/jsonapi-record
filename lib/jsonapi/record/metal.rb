@@ -116,7 +116,7 @@ module JSONAPI
 
         # @return [String]
         def collection_path
-          "/#{type}"
+          "#{type}"
         end
 
         # @param id [String]

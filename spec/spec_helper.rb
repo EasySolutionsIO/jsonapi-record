@@ -14,6 +14,7 @@ require "support/profile"
 require "support/post"
 require "support/blog_post"
 require "support/user"
+require "support/user_with_scoped_uri"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure

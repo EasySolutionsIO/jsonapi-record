@@ -9,8 +9,10 @@ RSpec.describe JSONAPI::Record::Metal do
   let(:post) { Post.new(title: "Post1", body: "Lorem Ipsum") }
   let(:type) { User.type }
   let(:base_uri) { User.base_uri }
+  let(:scoped_base_uri) { UserWithScopedUri.base_uri }
   let(:relationship_name) { "posts" }
   let(:collection_uri) { "#{base_uri}/#{type}" }
+  let(:scoped_collection_uri) { "#{scoped_base_uri}#{type}" }
   let(:individual_uri) { "#{base_uri}/#{type}/#{id}" }
   let(:related_resource_uri) { "#{base_uri}/#{type}/#{id}/#{relationship_name}" }
 
@@ -37,6 +39,10 @@ RSpec.describe JSONAPI::Record::Metal do
   describe ".collection_uri" do
     it "returns collection_uri" do
       expect(User.collection_uri).to eq collection_uri
+    end
+
+    it "returns collection_uri with scope" do
+      expect(UserWithScopedUri.collection_uri).to eq scoped_collection_uri
     end
   end
 
